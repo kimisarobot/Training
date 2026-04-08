@@ -1,0 +1,63 @@
+---
+title: "Untitled"
+format: html
+bibliography: references.bib
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+[@oke2020] When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+## Shopping List
+
+### Store Number 1
+
+1.  Cheese
+2.  Bread
+3.  Apples
+4.  **Fresh** dill
+5.  *Fancy* yogurt
+
+### Store Number 2
+
+1.  Mop
+2.  Laundry detergent
+3.  Cat litter [^1]
+
+[^1]: unscented
+
+### A cool guy
+
+<img src="KR.jpg" alt="drawing" width="200"/>
+
+```{r}
+x <- c(1,3,5,7)
+x^2
+```
+
+```{r}
+x <- 4 * 8
+
+hights_ft <- c(5.2, 6.0, 5.7)
+
+coef <- 3.14
+```
+
+**I LOVE CATS**
