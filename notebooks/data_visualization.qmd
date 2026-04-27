@@ -14,6 +14,9 @@ library(janitor)
 library(ggplot2)
 
 library(plotly)
+
+library(DT)
+library(leaflet)
 ```
 
 ## Load Data
@@ -161,4 +164,37 @@ plot1
 
 ggplotly(facet_plot, tooltip = c('x', 'y'))
 
+```
+
+
+```{r}
+datatable(delta_visits)
+```
+## Interactive Table
+
+```{r}
+DT::datatable(
+  daily_visits_loc,
+  caption  = "Daily visitor counts at Delta restoration sites",
+  colnames = c("Location", "Date", "Visitor type", "Daily visits"),
+  options  = list(pageLength = 10)
+)
+```
+
+## Interactive Map
+
+```{r}
+restoration_sites <- delta_visits_raw %>%
+  janitor::clean_names() %>%
+  distinct(restore_loc = eco_restore_approximate_location,
+           latitude, longitude) %>%
+  drop_na(latitude, longitude)
+
+leaflet(restoration_sites) %>%
+  addTiles() %>%
+  addMarkers(
+    lng   = ~longitude,
+    lat   = ~latitude,
+    popup = ~restore_loc
+  )
 ```
