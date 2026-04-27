@@ -1,3 +1,7 @@
+---
+title: "data viz"
+format: html 
+---
 ## Load Packages
 ```{r}
 library(readr)
@@ -75,15 +79,7 @@ plot1 <- daily_visits_loc %>%
     ggplot(aes(x=restore_loc, y=daily_visits))+
     geom_boxplot()
 
-ggplotly(plot1, tooltip = c('x', 'y'))
-```
 
- 
-## Load data
-
-```{r}
-delta_visits_raw <- read_csv("Socioecological_monitoring_data.csv")
-delta_visits_raw
 ```
 
 
