@@ -1,0 +1,82 @@
+
+# Clean and Wrangle
+
+## Setup
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(readr)
+```
+
+## Source Data
+
+### Read Data
+
+```{r}
+catch_original <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
+```
+
+```{r}
+colnames(catch_original)
+head(catch_original)
+summary(catch_original)
+```
+
+
+## Clean and reshape
+
+
+```{r}
+catch_df <- catch_original %>% 
+    select(Region, Year, Chinook, Sockeye, Coho, Pink, Chum)
+
+
+```
+
+
+```{r}
+catch_clean <- catch_df %>% 
+    mutate(
+        Chinook=if_else(
+             Chinook== "I",
+             "1",
+             Chinook),
+        Chinook= as.numeric(
+            Chinook))
+```
+
+```{r}
+catch_long <- catch_clean %>% 
+    pivot_longer(cols= -c(Region, Year),
+        names_to= "Species",
+        values_to= "Catch_thousands")
+```
+
+
+```{r}
+catch_long <- catch_long %>% 
+    mutate(
+        Catch= Catch_thousands*1000) %>% 
+    select(-Catch_thousands)
+```
+
+
+```{r}
+mean_region <- catch_long %>% 
+    group_by(Region) %>% 
+    summarise(mean_catch= mean(Catch, na.rm=TRUE), .groups = "drop") %>% 
+    arrange(desc(mean_catch))
+
+head(mean_region)
+
+
+```
+
+
+```{r}
+sse_df <- catch_long %>% 
+    filter(Region == "SSE")
+```
+
+
